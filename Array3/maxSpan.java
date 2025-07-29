@@ -1,26 +1,28 @@
 public class maxSpan {
-    public int maxSpan(int[] arr) {
-        if (arr.length == 0) return 0;
+    public int maxSpan(int[] nums) {
 
-        Map<Integer, int[]> positions = new HashMap<>();
+        if(nums.length == 0)
+            return 0;
 
-        for (int i = 0; i < arr.length; i++) {
-            int value = arr[i];
-            if (!positions.containsKey(value)) {
-                positions.put(value, new int[]{i, i});
-            } else {
-                positions.get(value)[1] = i;
+        int maxLength = 1;
+        int i = 0;
+        int j = nums.length - 1;
+
+        while(j-i+1 > maxLength)
+        {
+
+            int k = j;
+
+            while((i < k) && (k-i+1 > maxLength))
+            {
+                if(nums[i] == nums[k])
+                    maxLength = k-i+1;
+                k--;
             }
+
+            i++;
         }
 
-        int maxSpan = 0;
-        for (int[] pos : positions.values()) {
-            int span = pos[1] - pos[0] + 1;
-            if (span > maxSpan) {
-                maxSpan = span;
-            }
-        }
-
-        return maxSpan;
+        return maxLength;
     }
 }
